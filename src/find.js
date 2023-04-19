@@ -9,7 +9,8 @@ export async function search(arr, title) {
     };
   }));
 
-  await resultados.sort((a, b) => b.similitud - a.similitud);
+  await resultados?.sort((a, b) => b.similitud - a.similitud);
 
-  return await resultados[0].similitud && resultados[0].similitud  > 0.5 ? resultados[0] : 0
+
+  return await resultados[0]?.similitud && resultados[0].similitud  > 0.5 ? resultados[0] : 0
 }
