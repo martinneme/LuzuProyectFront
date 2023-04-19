@@ -13,7 +13,7 @@ useEffect(() => {
 
   return (
 <>   
-    { flag ? ( <><Card className="textTitle">
+    { flag ? ( <><Card className="definition">
         <h3>Frase:</h3>
         {data && data.title}
       </Card><Card className="textDescription">

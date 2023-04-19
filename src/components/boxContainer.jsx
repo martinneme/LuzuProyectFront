@@ -12,6 +12,8 @@ function Box() {
   const [flagSearch, setFlagSearch] = useState(false);
   const [title, setTitle] = useState(null);
   const [wordlesArr, setWordlesArr] = useState([]);
+  const [isVisible, setIsVisible] = useState(false);
+  const [showCard, setShowCard] = useState(true);
 
 
 
@@ -27,7 +29,8 @@ function Box() {
       description: "",
     };
     const fetch = async (title) => {
-      const data = query(collection(db, "definition"));
+      try{
+          const data = query(collection(db, "definition"));
       const snapshots = await getDocs(data);
       if (snapshots.size === 0) {
         console.log("No hay productos");
@@ -38,10 +41,21 @@ function Box() {
    setWordlesArr ? setData(await search(wordlesArr, title)) : setData(notExist);
           data && setFlagSearch(true);
       }
+      }catch(e){
+        if(e.code === "resource-exhausted"){
+          setShowCard(false);
+          setIsVisible(true);
+        }
+      }
+    
       };
   
     if (flagSearch) {
-      fetch(title);
+      try{
+        fetch(title);
+      }catch(e){
+
+      }
     }
    
   }, [title,wordlesArr]);
@@ -51,14 +65,16 @@ function Box() {
   return (
     <Card className="box">
          <Card className="boxCenter"> 
+         <Card className="textTitle" style={{ display: isVisible ? 'block' : 'none' }}><a>Se alcanzo el limite gratuito, reintente mañana</a></Card>
      { flagSearch ? (
      <BoxCenter handleSearchValue={handleSearchValue} data={data}></BoxCenter>
      ):( <Card>
-      <a className="textTitle">
+      <a style={{ display: showCard ? 'block' : 'none' }} className="textTitle">
           Hola BOT, ¡busca la frase o término de Luzu que quieres conocer!
         </a>
       </Card>) }
-       <FindComponent handleSearchValue={handleSearchValue}></FindComponent>
+      {showCard && (  <FindComponent  handleSearchValue={handleSearchValue}></FindComponent>)}
+     
        </Card>
       <NavChannels ></NavChannels>
     </Card>

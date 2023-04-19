@@ -58,12 +58,15 @@ input{
 }
 
 .textTitle{
+  margin: auto;
+  display: block;
+  padding: 10%;
+  height: 30%;
+}
+
+.definition{
   display: block;
   width: 60%;
-  padding-bottom:1% ;
-  height: 30%;
-
-
 }
 
 .textDescription{
