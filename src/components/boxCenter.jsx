@@ -18,7 +18,7 @@ useEffect(() => {
         {data && data.title}
       </Card><Card className="textDescription">
           <h3>Explicación:</h3>
-          {data && <a>{data.description + " "}</a>}
+          {data && <p>{data.description + " "}</p>}
           {data?.url && (
             <a className="link" href={data.url}>
               {" "}
